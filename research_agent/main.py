@@ -1,4 +1,5 @@
 from strands import Agent
+from strands_tools import think, browser, batch
 from strands.handlers.callback_handler import PrintingCallbackHandler
 from strands.models.openai import OpenAIModel
 from dotenv import load_dotenv
@@ -9,7 +10,7 @@ load_dotenv()
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 RESEARCH_AGENT_SYSTEM_PROMPT = """
-You are an advanced research agent equipped with access to web search and specialized research tools. When given a question or topic, use your tools to gather the most relevant, up-to-date, and credible information from the internet and other sources. 
+You are an advanced research agent equipped with access to web search and specialized research tools. When given a question or topic, use your tools to gather the most relevant, up-to-date, and credible information from the internet and other sources.
 
 For each query:
 - Begin by clarifying the research objective if needed.
@@ -33,7 +34,7 @@ agent = Agent(
     model=OpenAIModel(
         model_id="gpt-5",
     ),
-    tools=[],
+    tools=[think, browser, batch],
     callback_handler=PrintingCallbackHandler(),
 )
 
